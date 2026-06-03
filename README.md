@@ -25,14 +25,35 @@ RegisterNumber:
 (ii) To find the LU Decomposition of a matrix
 ```
 /*
-Program to find the LU Decomposition of a matrix.
-Developed by: 
-RegisterNumber: 
+'''Program to find L and U matrix using LU decomposition.
+Developed by: Hemavarathan S
+RegisterNumber: 25005365
+'''
+import os
+os.environ["OPENBLAS_NUM_THREADS"]="1"
+
+import numpy as np
+A=np.array(eval(input()),dtype=float)
+n=len(A)
+U=A.copy()
+L=np.eye(n)
+for K in range(n-1):
+    #Partial pivoting
+    p=np.argmax(np.abs(U[K:,K]))+K
+    if p!=K:
+        U[[K,p]]=U[[p,K]]
+    if K>0:
+        L[[K,p],:K]=L[[p,K],:K]
+    for i in range(K+1,n):
+        L[i,K]=U[i,K]/U[K,K]
+        U[i]=U[i]-L[i,K]*U[K]
+print(L)
+print(U): 
 */
 ```
 
 ## Output:
-![lu decomposition]()
+<img width="1167" height="434" alt="image" src="https://github.com/user-attachments/assets/e19f987e-c317-4510-9bd5-731858233349" />
 
 
 ## Result:
